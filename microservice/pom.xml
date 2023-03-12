@@ -5,9 +5,13 @@
     <groupId>com.microservice</groupId>
     <artifactId>microservice</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>Spring Boot Blank Project (from https://github.com/making/spring-boot-blank)</name>
+    <modules>
+        <module>SAGAFramework</module>
+        <module>microservice-chris</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
