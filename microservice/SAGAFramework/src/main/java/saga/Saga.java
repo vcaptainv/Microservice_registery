@@ -1,6 +1,5 @@
 package saga;
 
-
 public interface Saga<Data> {
 
     SagaDefinition<Data> getSagaDefinition();

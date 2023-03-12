@@ -29,6 +29,6 @@ public class StepBuilder<Data> {
     }
 
     public SagaDefinition<Data> build() {
-        return null;
+        return new SimpleSagaDefinition<Data>(localFunction, compensation);
     }
 }

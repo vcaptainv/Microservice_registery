@@ -1,3 +1,5 @@
+package microservice;
+
 public class MicroserviceParameter {
     private String name;
     private String type;

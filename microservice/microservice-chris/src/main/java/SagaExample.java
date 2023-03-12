@@ -14,7 +14,6 @@ public class SagaExample implements SagaInitializer {
         SagaFramework.registerService(RandomService.class, new LocalRandomService());
         SagaFramework.registerService(CalculatorService.class, new LocalCalculatorService());
         Saga<?> multiplyRandomNumbersSaga = new MultiplyRandomNumbersSaga();
-        UUID sagaID = SagaFramework.registerSaga("multiplyRandomNumbers", multiplyRandomNumbersSaga);
 
         // example of what has to happen
         RandomService randomService = SagaFramework.getService(RandomService.class);

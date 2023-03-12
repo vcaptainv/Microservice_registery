@@ -29,12 +29,6 @@ public class SagaFramework {
         return sagaFramework;
     }
 
-    public static UUID registerSaga(String sagaName, Saga saga) {
-        System.out.println("SagaFramework.registerSaga() called");
-
-        return UUID.randomUUID();
-    }
-
     public static void registerService(Class<?> randomServiceClass, Object localRandomService) {
         System.out.println("SagaFramework.registerService() called");
         getInstance().getAppRegistry().registerService(randomServiceClass, localRandomService);
@@ -46,8 +40,8 @@ public class SagaFramework {
         return getInstance().getAppRegistry().getService(serviceClass);
     }
 
-    public static void invokeSaga(Saga<?> multiplyRandomNumbersSaga) {
-
+    public static void invokeSaga(Saga<?> saga) {
+        saga.getSagaDefinition().start();
     }
 
     private AppRegistry getAppRegistry() {

@@ -16,6 +16,17 @@ public class SagaActions<Data> {
     private Optional<RuntimeException> localException;
     private final boolean failed;
 
+    public SagaActions() {
+        this.commands = new ArrayList<>();
+        this.updatedSagaData = Optional.empty();
+        this.updatedState = Optional.empty();
+        this.endState = false;
+        this.compensating = false;
+        this.local = false;
+        this.localException = Optional.empty();
+        this.failed = false;
+    }
+
     public SagaActions(List<CommandWithDestinationAndType> commands,
                        Optional<Data> updatedSagaData,
                        Optional<String> updatedState, boolean endState, boolean compensating, boolean failed, boolean local, Optional<RuntimeException> localException) {
