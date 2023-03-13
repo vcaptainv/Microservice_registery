@@ -48,7 +48,7 @@ public class MultiplyRandomNumbersSaga implements SimpleSaga<MultiplyRandomNumbe
         System.out.println("Generate random numbers");
         RandomService service = SagaFramework.getService(RandomService.class);
         int randomInteger = service.getRandomInteger(10, 20);
-        int randomInteger2 = service.getRandomInteger(10, 20);
+        int randomInteger2 = service.getRandomInteger(7, 20);
         multiplyRandomNumbersSagaData.setNumber1(randomInteger);
         multiplyRandomNumbersSagaData.setNumber2(randomInteger2);
     }

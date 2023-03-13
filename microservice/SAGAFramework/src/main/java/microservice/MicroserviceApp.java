@@ -1,8 +1,11 @@
 package microservice;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.UUID;
 
+@Data
 public class MicroserviceApp {
     private String name;
     private String url;

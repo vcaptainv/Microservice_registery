@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class StepBuilder<Data> {
+    private SimpleSagaDefinitionBuilder<Data> builder;
     private Optional<Consumer<Data>> compensation = Optional.empty();
     private Consumer<Data> localFunction;
 
@@ -11,11 +12,16 @@ public class StepBuilder<Data> {
         this.localFunction = localFunction;
     }
 
+    public StepBuilder(SimpleSagaDefinitionBuilder<Data> builder) {
+        this.builder = builder;
+    }
+
     public StepBuilder() {
     }
 
     public StepBuilder<Data> invokeLocal(Consumer<Data> localFunction) {
-        return new StepBuilder<Data>(localFunction);
+       this.localFunction = localFunction;
+       return this;
     }
 
     public StepBuilder<Data> withCompensation(Consumer<Data> localCompensation) {
@@ -25,10 +31,24 @@ public class StepBuilder<Data> {
 
 
     public StepBuilder<Data> step() {
-        return new StepBuilder();
+        buildCurrentStep();
+        return new StepBuilder<>(builder);
     }
 
     public SagaDefinition<Data> build() {
-        return new SimpleSagaDefinition<Data>(localFunction, compensation);
+        buildCurrentStep();
+        return builder.build();
+    }
+
+    private void buildCurrentStep(){
+        SagaStep<Data> step = new SagaStep<>(this.localFunction, this.compensation.orElse(null));
+        SagaStep<Data> currentBuilderStep = builder.getCurrentStep();
+        step.setPreviousStep(currentBuilderStep);
+        if(currentBuilderStep != null){
+            currentBuilderStep.setNextStep(step);
+        } else {
+            builder.setFirstStep(step);
+        }
+        builder.setCurrentStep(step);
     }
 }

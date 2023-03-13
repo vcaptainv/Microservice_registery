@@ -8,16 +8,18 @@ import java.util.function.Consumer;
 
 public class SimpleSagaDefinition<Data> implements SagaDefinition<Data> {
 
-    private final List<SagaStep> steps;
-    public SimpleSagaDefinition(List<SagaStep> steps) {
-        this.steps = steps;
+    private final SagaStep<Data> firstStep;
+    public SimpleSagaDefinition(SagaStep<Data> firstStep) {
+        this.firstStep = firstStep;
     }
 
     @Override
     public SagaActions<Data> start(Data sagaData) {
         SagaActions<Data> actions = new SagaActions<Data>();
-        for (SagaStep step : steps) {
-            actions = step.execute(sagaData, actions);
+        SagaStep<Data> currentStep = firstStep;
+        while(currentStep != null) {
+            actions = currentStep.execute(sagaData, actions);
+            currentStep = currentStep.getNextStep();
         }
         return actions;
     }

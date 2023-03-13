@@ -1,7 +1,8 @@
-import lombok.Data;
+import microservice.MicroserviceApp;
 import saga.Saga;
+import saga.SagaActions;
 
-import java.util.UUID;
+import java.lang.reflect.InvocationTargetException;
 
 public class SagaFramework {
     private SagaInitializer sagaInitializer;
@@ -17,6 +18,10 @@ public class SagaFramework {
     public static void initialize(SagaInitializer initializer) {
         System.out.println("SagaFramework.initialize() called");
         SagaFramework sagaFramework = new SagaFramework(initializer);
+
+
+        // TODO create gRPC server
+
 
         setInstance(sagaFramework);
     }
@@ -40,9 +45,12 @@ public class SagaFramework {
         return getInstance().getAppRegistry().getService(serviceClass);
     }
 
-    public static void invokeSaga(Saga<?> saga) {
-        saga.getSagaDefinition().start();
+    public static <Data> SagaActions<Data> invokeSaga(Saga<Data> saga, Class<Data> dataClass) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        System.out.println("SagaFramework.invokeSaga() called");
+        Data data = dataClass.getDeclaredConstructor().newInstance();
+        return saga.getSagaDefinition().start(data);
     }
+
 
     private AppRegistry getAppRegistry() {
         return appRegistry;

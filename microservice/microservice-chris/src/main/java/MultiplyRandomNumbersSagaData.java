@@ -11,4 +11,7 @@ public class MultiplyRandomNumbersSagaData {
         this.number2 = number2;
         this.result = result;
     }
+
+    public MultiplyRandomNumbersSagaData() {
+    }
 }

@@ -1,3 +1,7 @@
+import microservice.MicroserviceApp;
+import microservice.MicroserviceMethod;
+import microservice.MicroserviceParameter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +15,7 @@ public class AppRegistry {
 
     // Map of services
     private Map<Class<?>, Object> services;
+    private Map<String, MicroserviceApp> remoteServices;
     private AppRegistry() {
         this.services = new HashMap<>();
     }
@@ -39,5 +44,9 @@ public class AppRegistry {
             }
         }
         return null;
+    }
+
+    public MicroserviceApp getService(String appName) {
+        return remoteServices.get(appName);
     }
 }
