@@ -1,10 +1,5 @@
 package saga;
 
-import org.jboss.logging.Message;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 
 public class SimpleSagaDefinition<Data> implements SagaDefinition<Data> {
 
@@ -26,7 +21,7 @@ public class SimpleSagaDefinition<Data> implements SagaDefinition<Data> {
     }
 
     @Override
-    public SagaActions<Data> handleReply(String sagaType, String sagaId, String currentState, Data sagaData, Message message) {
+    public SagaActions<Data> handleReply(String sagaType, String sagaId, String currentState, Data sagaData) {
         return null;
     }
 }
