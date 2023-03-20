@@ -51,4 +51,9 @@ public class StepBuilder<Data> {
         }
         builder.setCurrentStep(step);
     }
+
+    public StepBuilder<Data> invokeFinally(Consumer<Data> cleanupFunction) {
+        builder.setCleanupFunction(cleanupFunction);
+        return this;
+    }
 }

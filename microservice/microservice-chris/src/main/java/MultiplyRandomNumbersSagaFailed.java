@@ -7,29 +7,34 @@ import saga.SimpleSaga;
  * Create and define the process of an orchestration-based order saga which implements
  * SimpleSaga with order saga data object.
  */
-public class MultiplyRandomNumbersSaga implements SimpleSaga<MultiplyRandomNumbersSagaData> {
+public class MultiplyRandomNumbersSagaFailed implements SimpleSaga<MultiplyRandomNumbersSagaData> {
 
-    public MultiplyRandomNumbersSaga() {
+    public MultiplyRandomNumbersSagaFailed() {
         System.out.println("MultiplyRandomNumbersSaga constructor");
     }
 
     private final SagaDefinition<MultiplyRandomNumbersSagaData> sagaDefinition = step()
             .invokeLocal(this::generateRandomNumbers)
             .step()
-                .invokeLocal(this::multiplyRandomNumbers)
-                .withCompensation(this::compensate)
+            .invokeLocal(this::multiplyRandomNumbers)
+            .withCompensation(this::compensate)
             .step()
-                .invokeLocal(this::addRandomNumbers)
-                .withCompensation(this::compensate)
+            .invokeLocal(this::addRandomNumbers)
+            .withCompensation(this::compensate)
             .step()
-                .invokeLocal(this::setFinalResult)
-                .withCompensation(this::compensate)
+            .invokeLocal(this::setFinalResult)
+            .withCompensation(this::compensate)
             .step()
-                .invokeLocal(this::multiplyRandomNumbers)
-                .withCompensation(this::compensate)
+            .invokeLocal(this::multiplyRandomNumbers)
+            .withCompensation(this::compensate)
             .step()
-                .invokeLocal(this::printResult)
+            .invokeLocal(this::failSaga)
+            .invokeFinally(this::printResult)
             .build();
+
+    private void failSaga(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {
+        throw new RuntimeException("Failed");
+    }
 
     private void addRandomNumbers(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {
         CalculatorService service = SagaFramework.getService(CalculatorService.class);

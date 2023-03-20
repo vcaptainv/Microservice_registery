@@ -1,5 +1,6 @@
 package saga;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class SagaStep<T> {
@@ -17,18 +18,23 @@ public class SagaStep<T> {
     }
 
     public <Data> SagaActions<Data> execute(T sagaData, SagaActions<Data> actions) {
-        try {
-            this.method.accept(sagaData);
-        } catch (Exception e) {
-            System.out.println("FAILED");
-            System.out.println(e.getMessage());
-            System.exit(1);
+        this.method.accept(sagaData);
+        return actions;
+    }
+
+
+    protected <Data> SagaActions<Data> runCompensation(T sagaData, SagaActions<Data> actions) {
+        if(this.compensation != null) {
+            this.compensation.accept(sagaData);
         }
         return actions;
     }
 
     public SagaStep<T> getNextStep() {
         return nextStep;
+    }
+    public SagaStep<T> getPreviousStep() {
+        return previousStep;
     }
 
     public void setNextStep(SagaStep<T> nextStep) {

@@ -14,7 +14,7 @@ public class SagaActions<Data> {
     private final boolean compensating;
     private final boolean local;
     private Optional<RuntimeException> localException;
-    private final boolean failed;
+    private boolean failed;
 
     public SagaActions() {
         this.commands = new ArrayList<>();
@@ -70,6 +70,10 @@ public class SagaActions<Data> {
 
     public Optional<RuntimeException> getLocalException() {
         return localException;
+    }
+
+    public void setFailed(boolean b) {
+        this.failed = b;
     }
 
     public static class Builder<Data> {
@@ -146,6 +150,7 @@ public class SagaActions<Data> {
         return new Builder<>();
     }
 
-
-
+    public void setLocalException(Optional<RuntimeException> localException) {
+        this.localException = localException;
+    }
 }

@@ -44,9 +44,12 @@ public class SagaExample implements SagaInitializer {
                 " ###########################################\n");
 
         Saga<MultiplyRandomNumbersSagaData> multiplyRandomNumbersSaga = new MultiplyRandomNumbersSaga();
+        Saga<MultiplyRandomNumbersSagaData> multiplyRandomNumbersSagaFailed = new MultiplyRandomNumbersSagaFailed();
         /* start */
-        SagaFramework.invokeSaga(multiplyRandomNumbersSaga, MultiplyRandomNumbersSagaData.class);
+        //SagaFramework.invokeSaga(multiplyRandomNumbersSaga, MultiplyRandomNumbersSagaData.class);
         /* end */
+
+        SagaFramework.invokeSaga(multiplyRandomNumbersSagaFailed, MultiplyRandomNumbersSagaData.class);
 
         System.out.println("SagaExample finished");
     }
