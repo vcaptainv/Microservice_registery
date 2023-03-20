@@ -1,11 +1,7 @@
-
-
 import calculator.CalculatorService;
 import random.RandomService;
 import saga.SagaDefinition;
 import saga.SimpleSaga;
-
-import java.util.List;
 
 /**
  * Create and define the process of an orchestration-based order saga which implements
@@ -24,8 +20,31 @@ public class MultiplyRandomNumbersSaga implements SimpleSaga<MultiplyRandomNumbe
             .invokeLocal(this::multiplyRandomNumbers)
             .withCompensation(this::compensate)
             .step()
+            .invokeLocal(this::addRandomNumbers)
+            .withCompensation(this::compensate)
+            .step()
+            .invokeLocal(this::setFinalResult)
+            .withCompensation(this::compensate)
+            .step()
+            .invokeLocal(this::multiplyRandomNumbers)
+            .withCompensation(this::compensate)
+            .step()
             .invokeLocal(this::printResult)
             .build();
+
+    private void addRandomNumbers(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {
+        CalculatorService service = SagaFramework.getService(CalculatorService.class);
+        float result = service.add(multiplyRandomNumbersSagaData.getNumber1(), multiplyRandomNumbersSagaData.getNumber2());
+        if (multiplyRandomNumbersSagaData.isFinalResult()){
+            multiplyRandomNumbersSagaData.setResult((int) result);
+        } else {
+            multiplyRandomNumbersSagaData.setNumber1((int) result);
+        }
+    }
+
+    private void setFinalResult(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {
+        multiplyRandomNumbersSagaData.setFinalResult(true);
+    }
 
     private void printResult(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {
         System.out.println("Number 1: " + multiplyRandomNumbersSagaData.getNumber1());
@@ -34,7 +53,6 @@ public class MultiplyRandomNumbersSaga implements SimpleSaga<MultiplyRandomNumbe
     }
 
     private void multiplyRandomNumbers(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {
-        System.out.println("Multiply random numbers");
         CalculatorService service = SagaFramework.getService(CalculatorService.class);
         float result = service.multiply(multiplyRandomNumbersSagaData.getNumber1(), multiplyRandomNumbersSagaData.getNumber2());
         multiplyRandomNumbersSagaData.setResult((int) result);

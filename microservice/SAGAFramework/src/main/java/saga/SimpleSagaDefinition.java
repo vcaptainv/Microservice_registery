@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 public class SimpleSagaDefinition<Data> implements SagaDefinition<Data> {
 
     private final SagaStep<Data> firstStep;
+
     public SimpleSagaDefinition(SagaStep<Data> firstStep) {
         this.firstStep = firstStep;
     }

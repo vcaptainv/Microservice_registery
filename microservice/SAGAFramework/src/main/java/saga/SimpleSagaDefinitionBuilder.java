@@ -1,15 +1,10 @@
 package saga;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 public class SimpleSagaDefinitionBuilder<Data> {
-    @Setter
+
     private SagaStep<Data> firstStep;
 
-    @Getter
-    @Setter
     private SagaStep<Data> currentStep;
 
     public SimpleSagaDefinitionBuilder() {
@@ -17,5 +12,17 @@ public class SimpleSagaDefinitionBuilder<Data> {
 
     public SagaDefinition<Data> build() {
         return new SimpleSagaDefinition<>(firstStep);
+    }
+
+    public void setFirstStep(SagaStep<Data> firstStep) {
+        this.firstStep = firstStep;
+    }
+
+    public SagaStep<Data> getCurrentStep() {
+        return currentStep;
+    }
+
+    public void setCurrentStep(SagaStep<Data> currentStep) {
+        this.currentStep = currentStep;
     }
 }

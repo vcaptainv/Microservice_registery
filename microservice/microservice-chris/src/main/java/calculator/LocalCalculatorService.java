@@ -3,6 +3,7 @@ package calculator;
 public class LocalCalculatorService implements CalculatorService{
     @Override
     public float add(float a, float b) {
+        System.out.println("LocalCalculatorService.add(" + a + ", " + b + ")");
         return a + b;
     }
 

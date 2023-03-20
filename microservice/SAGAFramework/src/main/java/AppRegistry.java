@@ -36,7 +36,7 @@ public class AppRegistry {
     }
 
     public <T> T getService(Class<T> serviceClass) {
-        System.out.println("AppRegistry.getService() called");
+        //System.out.println("AppRegistry.getService() called");
         if(services.containsKey(serviceClass)){
             Object service = services.get(serviceClass);
             if(service != null){

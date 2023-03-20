@@ -41,7 +41,7 @@ public class SagaFramework {
 
     // return service with generic type
     public static <T> T getService(Class<T> serviceClass) {
-        System.out.println("SagaFramework.getService() called");
+        //System.out.println("SagaFramework.getService() called");
         return getInstance().getAppRegistry().getService(serviceClass);
     }
 
