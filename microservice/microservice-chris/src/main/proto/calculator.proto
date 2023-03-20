@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package calculator;
+
+service Calculator {
+  // Adds two numbers
+  rpc Add(Request) returns (Response) {}
+
+  // Multiplies two numbers
+  rpc Multiply(Request) returns (Response) {}
+
+  // Subtract two numbers
+  rpc Subtract(Request) returns (Response) {}
+
+  // Divide two numbers
+  rpc Divide(Request) returns (Response) {}
+}
+
+message Request {
+  int32 first_number = 1;
+  int32 second_number = 2;
+}
+
+message Response {
+  int32 result = 1;
+}
+
+
+
+

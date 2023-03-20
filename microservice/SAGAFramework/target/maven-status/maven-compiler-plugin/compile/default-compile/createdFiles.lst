@@ -1,0 +1,17 @@
+SagaInitializer.class
+saga/SagaActions.class
+saga/SimpleSagaDefinitionBuilder.class
+saga/SagaStep.class
+saga/CommandWithDestinationAndType.class
+saga/StepBuilder.class
+saga/SimpleSagaDefinition.class
+saga/Saga.class
+saga/SimpleSaga.class
+saga/SagaActions$Builder.class
+microservice/MicroserviceApp.class
+AppRegistry.class
+saga/SimpleSagaDsl.class
+saga/SagaDefinition.class
+microservice/MicroserviceParameter.class
+SagaFramework.class
+microservice/MicroserviceMethod.class
