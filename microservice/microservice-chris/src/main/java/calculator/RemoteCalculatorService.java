@@ -11,7 +11,7 @@ import io.grpc.netty.NettyChannelBuilder;
 public class RemoteCalculatorService implements CalculatorService{
     private final CalculatorGrpc.CalculatorBlockingStub blockingStub;
 
-    public RemoteCalculatorService(String target) {
+    public RemoteCalculatorService(String host, int port) {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(
                 "localhost", 50051).usePlaintext()
                 .build();

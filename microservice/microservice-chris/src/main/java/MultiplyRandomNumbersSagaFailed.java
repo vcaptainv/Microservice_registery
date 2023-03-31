@@ -29,7 +29,7 @@ public class MultiplyRandomNumbersSagaFailed implements SimpleSaga<MultiplyRando
             .withCompensation(this::compensate)
             .step()
             .invokeLocal(this::failSaga)
-            .invokeFinally(this::printResult)
+            // .invokeFinally(this::printResult)
             .build();
 
     private void failSaga(MultiplyRandomNumbersSagaData multiplyRandomNumbersSagaData) {

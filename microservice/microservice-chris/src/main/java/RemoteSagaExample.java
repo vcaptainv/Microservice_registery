@@ -12,7 +12,7 @@ public class RemoteSagaExample implements SagaInitializer {
         System.out.println("Starting RemoteSagaExample...");
         SagaFramework.initialize(new SagaExample());
         SagaFramework.registerService(RandomService.class, new LocalRandomService());
-        SagaFramework.registerService(CalculatorService.class, new RemoteCalculatorService("localhost:50051"));
+        SagaFramework.registerService(CalculatorService.class, new RemoteCalculatorService("localhost", 50051));
 
         // example of what has to happen
         RandomService randomService = SagaFramework.getService(RandomService.class);
